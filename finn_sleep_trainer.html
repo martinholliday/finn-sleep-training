@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finn's Sleep Training Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2E5C8A 0%, #1e3a5f 100%);
+            color: white;
+            padding: 20px 30px 0 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 0;
+            margin: 0 -30px;
+        }
+        
+        .nav-tab {
+            flex: 1;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .nav-tab:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .nav-tab.active {
+            background: white;
+            color: #2E5C8A;
+            border-bottom: 3px solid #4A7C59;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .screen {
+            display: none;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        .step-indicator {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #2E5C8A;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            line-height: 60px;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .step-title {
+            font-size: 24px;
+            color: #2E5C8A;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .instructions {
+            background: #f0f7ff;
+            border-left: 4px solid #2E5C8A;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+        }
+        
+        .instructions ul {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin: 12px 0;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        
+        .timer-display {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .timer-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .timer-label {
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .button {
+            width: 100%;
+            padding: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .button:active {
+            transform: scale(0.98);
+        }
+        
+        .button-primary {
+            background: linear-gradient(135deg, #4A7C59 0%, #3a5f47 100%);
+            color: white;
+        }
+        
+        .button-primary:hover {
+            box-shadow: 0 6px 20px rgba(74, 124, 89, 0.4);
+        }
+        
+        .button-secondary {
+            background: linear-gradient(135deg, #2E5C8A 0%, #1e3a5f 100%);
+            color: white;
+        }
+        
+        .button-secondary:hover {
+            box-shadow: 0 6px 20px rgba(46, 92, 138, 0.4);
+        }
+        
+        .button-warning {
+            background: linear-gradient(135deg, #D97706 0%, #b45309 100%);
+            color: white;
+        }
+        
+        .button-warning:hover {
+            box-shadow: 0 6px 20px rgba(217, 119, 6, 0.4);
+        }
+        
+        .button-success {
+            background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+            color: white;
+            font-size: 20px;
+            padding: 25px;
+        }
+        
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .success-message {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .success-title {
+            font-size: 32px;
+            color: #4A7C59;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .success-text {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .stats-container {
+            background: #f0f7ff;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .stats-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2E5C8A;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #d1e3f5;
+        }
+        
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .stat-value {
+            color: #2E5C8A;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .alert {
+            background: #FEF3C7;
+            border-left: 4px solid #D97706;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .alert-text {
+            color: #92400E;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .question {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: #2E5C8A;
+            margin: 30px 0;
+        }
+        
+        .history-container {
+            padding: 20px 0;
+        }
+        
+        .chart-container {
+            background: #f0f7ff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .chart-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2E5C8A;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .summary-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .summary-value {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .summary-label {
+            font-size: 13px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .session-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .session-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .session-card:hover {
+            border-color: #2E5C8A;
+            box-shadow: 0 4px 12px rgba(46, 92, 138, 0.1);
+        }
+        
+        .session-delete {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .session-delete:hover {
+            background: #991b1b;
+            transform: scale(1.05);
+        }
+        
+        .session-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .session-date {
+            font-weight: bold;
+            color: #2E5C8A;
+            font-size: 16px;
+        }
+        
+        .session-time {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .session-trainer {
+            background: #4A7C59;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .session-type {
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 5px;
+            display: inline-block;
+        }
+        
+        .session-type.morning {
+            background: #F59E0B;
+        }
+        
+        .session-type.lunchtime {
+            background: #EF4444;
+        }
+        
+        .session-type.bedtime {
+            background: #8B5CF6;
+        }
+        
+        .session-type.night {
+            background: #1F2937;
+        }
+        
+        .session-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        
+        .session-stat {
+            text-align: center;
+        }
+        
+        .session-stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2E5C8A;
+            margin-bottom: 4px;
+        }
+        
+        .session-stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .bar-chart {
+            margin-top: 20px;
+        }
+        
+        .bar-item {
+            margin-bottom: 15px;
+        }
+        
+        .bar-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .bar-bg {
+            background: #e5e7eb;
+            height: 30px;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .bar-fill {
+            background: linear-gradient(135deg, #4A7C59 0%, #3a5f47 100%);
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        
+        .empty-text {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .trainer-select {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            background: white;
+        }
+        
+        .config-section {
+            background: #FEF3C7;
+            border-left: 4px solid #D97706;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+        }
+        
+        .config-label {
+            font-weight: bold;
+            color: #92400E;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .config-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #D97706;
+            border-radius: 8px;
+            background: white;
+        }
+        
+        .page-container {
+            display: none;
+        }
+        
+        .page-container.active {
+            display: block;
+        }
+        
+        .day-group {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .day-header {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2E5C8A;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        .day-sessions {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .mini-session {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .mini-session-info {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .mini-session-time {
+            font-weight: 600;
+            color: #2E5C8A;
+            min-width: 50px;
+        }
+        
+        .mini-session-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .mini-session-stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Password Protection -->
+    <div id="loginScreen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; z-index: 10000;">
+        <div style="background: white; border-radius: 20px; padding: 40px; max-width: 400px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+            <h2 style="text-align: center; color: #2E5C8A; margin-bottom: 10px; font-size: 28px;">🌙 Finn's Sleep Training</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">Please log in to continue</p>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; color: #666; font-weight: 600; margin-bottom: 8px; font-size: 14px;">Username</label>
+                <input type="text" id="loginUsername" style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 16px;" placeholder="Enter username">
+            </div>
+            
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; color: #666; font-weight: 600; margin-bottom: 8px; font-size: 14px;">Password</label>
+                <input type="password" id="loginPassword" style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 16px;" placeholder="Enter password">
+            </div>
+            
+            <div id="loginError" style="display: none; background: #FEE2E2; color: #991B1B; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; text-align: center;"></div>
+            
+            <button onclick="checkLogin()" style="width: 100%; padding: 15px; background: linear-gradient(135deg, #4A7C59 0%, #3a5f47 100%); color: white; border: none; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px;">
+                Log In
+            </button>
+        </div>
+    </div>
+
+    <div id="mainApp" style="display: none;">
+    <div class="container">
+        <div class="header">
+            <h1>🌙 Finn's Sleep Training</h1>
+            <p>Gentle Sleep Training Guide</p>
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="app.switchPage('training')">Training</button>
+                <button class="nav-tab" onclick="app.switchPage('history')">History</button>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Training Page -->
+            <div id="trainingPage" class="page-container active">
+            <!-- Start Screen -->
+            <div id="start" class="screen active">
+                <div class="success-message">
+                    <div class="success-icon">😴</div>
+                    <h2 class="success-title">Ready to Begin?</h2>
+                    <p class="success-text">
+                        This app will guide you through each step of the sleep training process 
+                        and track the session for you.
+                    </p>
+                </div>
+                <div class="config-section">
+                    <label class="config-label" for="sessionType">Session type:</label>
+                    <select id="sessionType" class="config-input" style="margin-bottom: 15px;">
+                        <option value="Morning Nap">Morning Nap</option>
+                        <option value="Lunchtime Nap">Lunchtime Nap</option>
+                        <option value="Bedtime" selected>Bedtime</option>
+                        <option value="Night Re-settle">Night Re-settle</option>
+                    </select>
+                    
+                    <label class="config-label" for="trainerSelect">Who's doing this session?</label>
+                    <select id="trainerSelect" class="config-input">
+                        <option value="Martin">Martin</option>
+                        <option value="Katie">Katie</option>
+                        <option value="Both">Both of us</option>
+                    </select>
+                </div>
+                <div style="margin: 20px 0; padding: 15px; background: #E8F1F8; border-radius: 8px;">
+                    <label style="display: flex; align-items: center; cursor: pointer;">
+                        <input type="checkbox" id="demoMode" style="width: 20px; height: 20px; margin-right: 10px; cursor: pointer;">
+                        <span style="color: #2E5C8A; font-size: 15px;">
+                            <strong>Demo mode</strong> (don't save this session to history)
+                        </span>
+                    </label>
+                </div>
+                <button class="button button-primary" onclick="app.startSession()">
+                    Start Sleep Training Session
+                </button>
+            </div>
+
+            <!-- Step 1: Put Down -->
+            <div id="step1" class="screen">
+                <div class="step-indicator">
+                    <div class="step-number">1</div>
+                    <h2 class="step-title">Put Down</h2>
+                </div>
+                <div class="instructions">
+                    <ul>
+                        <li>Place Finn in cot awake</li>
+                        <li>Say: "It's time to sleep"</li>
+                        <li>Move to position next to cot</li>
+                    </ul>
+                </div>
+                <button class="button button-primary" onclick="app.goToStep('step2')">
+                    Done - Move to Observe
+                </button>
+            </div>
+
+            <!-- Step 2: Observe -->
+            <div id="step2" class="screen">
+                <div class="step-indicator">
+                    <div class="step-number">2</div>
+                    <h2 class="step-title">Observe</h2>
+                </div>
+                <div class="instructions">
+                    <ul>
+                        <li>Stand/sit quietly</li>
+                        <li>No speaking, no touching</li>
+                        <li>Watch and wait</li>
+                    </ul>
+                </div>
+                <div class="question">Does he cry?</div>
+                <div class="button-group">
+                    <button class="button button-warning" onclick="app.startTimer()">
+                        Yes - He's Crying
+                    </button>
+                    <button class="button button-success" onclick="app.endSession()">
+                        No - He's Asleep!
+                    </button>
+                </div>
+            </div>
+
+            <!-- Timer Screen -->
+            <div id="timer" class="screen">
+                <div class="step-indicator">
+                    <div class="step-number">3</div>
+                    <h2 class="step-title">Soothe & Time</h2>
+                </div>
+                <div class="instructions">
+                    <ul>
+                        <li>Use soothing voice and gentle touch</li>
+                        <li>DON'T pick him up yet</li>
+                        <li>Timer stops if he calms down</li>
+                    </ul>
+                </div>
+                <div class="timer-display">
+                    <div class="timer-circle" id="timerDisplay">6:00</div>
+                    <div class="timer-label">Time Remaining</div>
+                </div>
+                <div class="question">Is he calming down?</div>
+                <div class="button-group">
+                    <button class="button button-primary" onclick="app.stopTimer()">
+                        Yes - He's Calmed
+                    </button>
+                    <button class="button button-secondary" onclick="void(0)">
+                        No - Keep Waiting
+                    </button>
+                </div>
+            </div>
+
+            <!-- Calmed Screen -->
+            <div id="calmed" class="screen">
+                <div class="step-indicator">
+                    <div class="step-number">4</div>
+                    <h2 class="step-title">He Calmed Down</h2>
+                </div>
+                <div class="success-message">
+                    <div class="success-icon">✅</div>
+                    <p class="success-text">
+                        Good progress! Step back and return to observing.
+                    </p>
+                </div>
+                <div class="alert">
+                    <p class="alert-text">
+                        <strong>Remember:</strong> If he cries again, you'll start a new 6-minute timer.
+                    </p>
+                </div>
+                <button class="button button-primary" onclick="app.goToStep('step2')">
+                    Return to Observe (Step 2)
+                </button>
+            </div>
+
+            <!-- Timer Complete Screen -->
+            <div id="timerComplete" class="screen">
+                <div class="step-indicator">
+                    <div class="step-number">6</div>
+                    <h2 class="step-title">Timer Complete</h2>
+                </div>
+                <div class="alert">
+                    <p class="alert-text">
+                        <strong>6 minutes reached.</strong> Time to pick him up and comfort him.
+                    </p>
+                </div>
+                <div class="instructions">
+                    <ul>
+                        <li>Pick Finn up now</li>
+                        <li>Comfort and calm him</li>
+                        <li>Once calm, put him back down AWAKE</li>
+                    </ul>
+                </div>
+                <button class="button button-warning" onclick="app.pickUp()">
+                    Picked Up - Calming Him
+                </button>
+            </div>
+
+            <!-- Pick Up Screen -->
+            <div id="pickUp" class="screen">
+                <div class="step-indicator">
+                    <div class="step-number">6</div>
+                    <h2 class="step-title">Calming Finn</h2>
+                </div>
+                <div class="success-message">
+                    <div class="success-icon">🤗</div>
+                    <p class="success-text">
+                        Take your time. Once he's calm, put him back in the cot whilst he's still awake.
+                    </p>
+                </div>
+                <div class="alert">
+                    <p class="alert-text">
+                        <strong>Important:</strong> He must go back in the cot awake, not asleep.
+                    </p>
+                </div>
+                <button class="button button-primary" onclick="app.goToStep('step2')">
+                    He's Back in Cot - Return to Observe
+                </button>
+            </div>
+
+            <!-- Success Screen -->
+            <div id="success" class="screen">
+                <div class="success-message">
+                    <div class="success-icon">🎉</div>
+                    <h2 class="success-title">Success!</h2>
+                    <p class="success-text">
+                        Finn is asleep! Well done on completing the session.
+                    </p>
+                </div>
+                
+                <div id="demoNotice" style="display: none; background: #E8F1F8; border-left: 4px solid #2E5C8A; padding: 15px; margin: 20px 0; border-radius: 8px;">
+                    <p style="color: #2E5C8A; font-size: 15px;">
+                        <strong>Demo Mode:</strong> This session will not be saved to history.
+                    </p>
+                </div>
+
+                <div class="stats-container">
+                    <h3 class="stats-title">Session Statistics</h3>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Duration</span>
+                        <span class="stat-value" id="statDuration">0 mins</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Times Picked Up</span>
+                        <span class="stat-value" id="statPickups">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Crying Episodes</span>
+                        <span class="stat-value" id="statEpisodes">0</span>
+                    </div>
+                </div>
+
+                <div class="alert">
+                    <p class="alert-text" id="feedbackText"></p>
+                </div>
+
+                <button class="button button-primary" onclick="app.reset()">
+                    Finish Session
+                </button>
+            </div>
+            </div>
+            
+            <!-- History Page -->
+            <div id="historyPage" class="page-container">
+                <div class="history-container">
+                    <div id="historyLoading" style="text-align: center; padding: 40px; color: #666;">
+                        <div style="font-size: 48px; margin-bottom: 20px;">⏳</div>
+                        <p>Loading session history...</p>
+                    </div>
+                    
+                    <div id="historyContent" style="display: none;">
+                        <!-- Summary Stats -->
+                        <div class="summary-stats" id="summaryStats"></div>
+                        
+                        <!-- Charts -->
+                        <div class="chart-container">
+                            <h3 class="chart-title">Average Duration by Day</h3>
+                            <div class="bar-chart" id="durationChart"></div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <h3 class="chart-title">Session Performance</h3>
+                            <div class="bar-chart" id="performanceChart"></div>
+                        </div>
+                        
+                        <!-- Sessions by Day -->
+                        <h3 style="font-size: 20px; font-weight: bold; color: #2E5C8A; margin-bottom: 20px;">Sessions by Day</h3>
+                        <div id="sessionsByDay"></div>
+                        
+                        <!-- All Sessions List -->
+                        <h3 style="font-size: 20px; font-weight: bold; color: #2E5C8A; margin: 30px 0 20px 0;">All Sessions</h3>
+                        <div class="session-list" id="sessionList"></div>
+                    </div>
+                    
+                    <div id="historyEmpty" style="display: none;">
+                        <div class="empty-state">
+                            <div class="empty-icon">📊</div>
+                            <div class="empty-text">No sessions recorded yet</div>
+                            <p style="color: #999; font-size: 14px;">Complete your first training session to see statistics here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        // Password protection
+        function checkLogin() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            const errorDiv = document.getElementById('loginError');
+            
+            if (username === 'FHL' && password === 'sleepybear!') {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('mainApp').style.display = 'block';
+                // Store login in session (lost when tab closes)
+                sessionStorage.setItem('finnAppLoggedIn', 'true');
+            } else {
+                errorDiv.textContent = 'Incorrect username or password';
+                errorDiv.style.display = 'block';
+                document.getElementById('loginPassword').value = '';
+            }
+        }
+        
+        // Allow Enter key to submit login
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('loginPassword').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkLogin();
+                }
+            });
+            document.getElementById('loginUsername').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkLogin();
+                }
+            });
+            
+            // Check if already logged in this session
+            if (sessionStorage.getItem('finnAppLoggedIn') === 'true') {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('mainApp').style.display = 'block';
+            }
+        });
+    </script>
+
+    <script>
+        const app = {
+            // GitHub configuration - UPDATE THESE VALUES
+            config: {
+                githubRepo: 'YOUR_USERNAME/YOUR_REPO',  // e.g., 'martinsmith/finn-sleep-training'
+                githubToken: '',  // Optional: For private repos or to avoid rate limits
+                dataFile: 'sleep_sessions.json'
+            },
+            
+            stats: {
+                startTime: null,
+                pickUpCount: 0,
+                cryingEpisodes: 0,
+                totalDuration: 0,
+                trainer: 'Martin',
+                demoMode: false,
+                sessionType: 'Bedtime'
+            },
+            timerSeconds: 360,
+            timerInterval: null,
+            allSessions: [],
+            
+            // Create alarm sound using Web Audio API
+            playAlarmSound() {
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const duration = 0.3;
+                    const frequency1 = 800;
+                    const frequency2 = 1000;
+                    
+                    // Play 3 beeps
+                    for (let i = 0; i < 3; i++) {
+                        setTimeout(() => {
+                            const oscillator = audioContext.createOscillator();
+                            const gainNode = audioContext.createGain();
+                            
+                            oscillator.connect(gainNode);
+                            gainNode.connect(audioContext.destination);
+                            
+                            oscillator.frequency.value = i % 2 === 0 ? frequency1 : frequency2;
+                            oscillator.type = 'sine';
+                            
+                            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+                            
+                            oscillator.start(audioContext.currentTime);
+                            oscillator.stop(audioContext.currentTime + duration);
+                        }, i * 400);
+                    }
+                } catch (error) {
+                    console.log('Could not play alarm sound:', error);
+                }
+            },
+
+            async loadSessions() {
+                try {
+                    // Try to load from GitHub
+                    const url = `https://raw.githubusercontent.com/${this.config.githubRepo}/main/${this.config.dataFile}`;
+                    const response = await fetch(url);
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        this.allSessions = data.sessions || [];
+                    } else {
+                        // Fallback to empty sessions
+                        this.allSessions = [];
+                    }
+                } catch (error) {
+                    console.log('Could not load sessions from GitHub, using empty state');
+                    this.allSessions = [];
+                }
+            },
+
+            async saveSession(sessionData) {
+                // Skip saving if in demo mode
+                if (this.stats.demoMode) {
+                    console.log('Demo mode - session not saved');
+                    return;
+                }
+                
+                // Add to local array
+                this.allSessions.unshift(sessionData);
+                
+                // Create updated JSON
+                const updatedData = {
+                    sessions: this.allSessions,
+                    lastUpdated: new Date().toISOString()
+                };
+                
+                // Show the JSON that needs to be saved
+                console.log('New session data:', JSON.stringify(updatedData, null, 2));
+                
+                // Create a downloadable file
+                const blob = new Blob([JSON.stringify(updatedData, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = this.config.dataFile;
+                
+                // Auto-download the updated file
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                // Show instructions
+                alert('Session saved! The updated ' + this.config.dataFile + ' file will download automatically. Please upload it to your GitHub repository to sync with Katie\'s device.');
+            },
+
+            async deleteSession(sessionIndex) {
+                if (!confirm('Are you sure you want to delete this session? This cannot be undone.')) {
+                    return;
+                }
+                
+                // Remove from array
+                this.allSessions.splice(sessionIndex, 1);
+                
+                // Create updated JSON
+                const updatedData = {
+                    sessions: this.allSessions,
+                    lastUpdated: new Date().toISOString()
+                };
+                
+                // Create a downloadable file
+                const blob = new Blob([JSON.stringify(updatedData, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = this.config.dataFile;
+                
+                // Auto-download the updated file
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                // Refresh the history view
+                this.renderHistory();
+                
+                alert('Session deleted! The updated ' + this.config.dataFile + ' file will download automatically. Please upload it to your GitHub repository to sync the changes.');
+            },
+
+            switchPage(page) {
+                // Update tabs
+                document.querySelectorAll('.nav-tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                event.target.classList.add('active');
+                
+                // Update pages
+                document.querySelectorAll('.page-container').forEach(container => {
+                    container.classList.remove('active');
+                });
+                
+                if (page === 'training') {
+                    document.getElementById('trainingPage').classList.add('active');
+                } else if (page === 'history') {
+                    document.getElementById('historyPage').classList.add('active');
+                    this.loadHistory();
+                }
+            },
+
+            async loadHistory() {
+                document.getElementById('historyLoading').style.display = 'block';
+                document.getElementById('historyContent').style.display = 'none';
+                document.getElementById('historyEmpty').style.display = 'none';
+                
+                await this.loadSessions();
+                
+                document.getElementById('historyLoading').style.display = 'none';
+                
+                if (this.allSessions.length === 0) {
+                    document.getElementById('historyEmpty').style.display = 'block';
+                    return;
+                }
+                
+                document.getElementById('historyContent').style.display = 'block';
+                this.renderHistory();
+            },
+
+            renderHistory() {
+                // Summary stats
+                const totalSessions = this.allSessions.length;
+                const avgDuration = Math.round(this.allSessions.reduce((sum, s) => sum + s.duration, 0) / totalSessions);
+                const avgPickups = (this.allSessions.reduce((sum, s) => sum + s.pickUps, 0) / totalSessions).toFixed(1);
+                const lastWeek = this.allSessions.filter(s => {
+                    const sessionDate = new Date(s.date);
+                    const weekAgo = new Date();
+                    weekAgo.setDate(weekAgo.getDate() - 7);
+                    return sessionDate >= weekAgo;
+                }).length;
+                
+                const summaryHTML = `
+                    <div class="summary-card">
+                        <div class="summary-value">${totalSessions}</div>
+                        <div class="summary-label">Total Sessions</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-value">${avgDuration}</div>
+                        <div class="summary-label">Avg Minutes</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-value">${avgPickups}</div>
+                        <div class="summary-label">Avg Pick-ups</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-value">${lastWeek}</div>
+                        <div class="summary-label">Last 7 Days</div>
+                    </div>
+                `;
+                document.getElementById('summaryStats').innerHTML = summaryHTML;
+                
+                // Duration chart - last 7 sessions
+                const recentSessions = this.allSessions.slice(0, 7).reverse();
+                const maxDuration = Math.max(...recentSessions.map(s => s.duration));
+                let durationChartHTML = '';
+                recentSessions.forEach(session => {
+                    const percentage = (session.duration / maxDuration) * 100;
+                    const date = new Date(session.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+                    const sessionType = session.sessionType || 'Bedtime';
+                    durationChartHTML += `
+                        <div class="bar-item">
+                            <div class="bar-label">
+                                <span>${date} - ${sessionType}</span>
+                                <span>${session.duration} mins</span>
+                            </div>
+                            <div class="bar-bg">
+                                <div class="bar-fill" style="width: ${percentage}%"></div>
+                            </div>
+                        </div>
+                    `;
+                });
+                document.getElementById('durationChart').innerHTML = durationChartHTML;
+                
+                // Performance chart - pick-ups
+                const maxPickups = Math.max(...recentSessions.map(s => s.pickUps));
+                let performanceChartHTML = '';
+                recentSessions.forEach(session => {
+                    const percentage = maxPickups > 0 ? (session.pickUps / maxPickups) * 100 : 0;
+                    const date = new Date(session.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+                    performanceChartHTML += `
+                        <div class="bar-item">
+                            <div class="bar-label">
+                                <span>${date}</span>
+                                <span>${session.pickUps} pick-ups</span>
+                            </div>
+                            <div class="bar-bg">
+                                <div class="bar-fill" style="width: ${percentage}%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                            </div>
+                        </div>
+                    `;
+                });
+                document.getElementById('performanceChart').innerHTML = performanceChartHTML;
+                
+                // Group sessions by day
+                const sessionsByDay = {};
+                this.allSessions.forEach((session, index) => {
+                    const date = new Date(session.date);
+                    const dayKey = date.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                    if (!sessionsByDay[dayKey]) {
+                        sessionsByDay[dayKey] = [];
+                    }
+                    sessionsByDay[dayKey].push({ ...session, index });
+                });
+                
+                // Render sessions by day
+                let dayGroupsHTML = '';
+                const sortedDays = Object.keys(sessionsByDay).sort((a, b) => {
+                    const dateA = new Date(a.split('/').reverse().join('-'));
+                    const dateB = new Date(b.split('/').reverse().join('-'));
+                    return dateB - dateA;
+                });
+                
+                sortedDays.forEach(dayKey => {
+                    const sessions = sessionsByDay[dayKey];
+                    const date = new Date(sessions[0].date);
+                    const dayLabel = date.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+                    
+                    dayGroupsHTML += `
+                        <div class="day-group">
+                            <div class="day-header">${dayLabel}</div>
+                            <div class="day-sessions">
+                    `;
+                    
+                    sessions.forEach(session => {
+                        const time = new Date(session.date).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+                        const sessionType = session.sessionType || 'Bedtime';
+                        const typeClass = sessionType.toLowerCase().replace(' ', '-').replace('morning-nap', 'morning').replace('lunchtime-nap', 'lunchtime').replace('night-re-settle', 'night');
+                        
+                        dayGroupsHTML += `
+                            <div class="mini-session">
+                                <div class="mini-session-info">
+                                    <span class="mini-session-time">${time}</span>
+                                    <span class="session-type ${typeClass}">${sessionType}</span>
+                                    <span class="session-trainer">${session.trainer}</span>
+                                    <div class="mini-session-stats">
+                                        <span class="mini-session-stat">⏱️ ${session.duration}m</span>
+                                        <span class="mini-session-stat">🤗 ${session.pickUps}</span>
+                                        <span class="mini-session-stat">😢 ${session.cryingEpisodes}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    dayGroupsHTML += `
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                document.getElementById('sessionsByDay').innerHTML = dayGroupsHTML;
+                
+                // Session list (detailed view)
+                let sessionListHTML = '';
+                this.allSessions.forEach((session, index) => {
+                    const date = new Date(session.date);
+                    const dateStr = date.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+                    const timeStr = date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+                    const sessionType = session.sessionType || 'Bedtime';
+                    const typeClass = sessionType.toLowerCase().replace(' ', '-').replace('morning-nap', 'morning').replace('lunchtime-nap', 'lunchtime').replace('night-re-settle', 'night');
+                    
+                    sessionListHTML += `
+                        <div class="session-card">
+                            <button class="session-delete" onclick="app.deleteSession(${index})">Delete</button>
+                            <div class="session-header">
+                                <div>
+                                    <div class="session-date">${dateStr}</div>
+                                    <div class="session-time">${timeStr}</div>
+                                    <span class="session-type ${typeClass}">${sessionType}</span>
+                                </div>
+                                <div class="session-trainer">${session.trainer}</div>
+                            </div>
+                            <div class="session-stats-grid">
+                                <div class="session-stat">
+                                    <div class="session-stat-value">${session.duration}</div>
+                                    <div class="session-stat-label">Minutes</div>
+                                </div>
+                                <div class="session-stat">
+                                    <div class="session-stat-value">${session.pickUps}</div>
+                                    <div class="session-stat-label">Pick-ups</div>
+                                </div>
+                                <div class="session-stat">
+                                    <div class="session-stat-value">${session.cryingEpisodes}</div>
+                                    <div class="session-stat-label">Episodes</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                document.getElementById('sessionList').innerHTML = sessionListHTML;
+            },
+
+            goToStep(stepId) {
+                document.querySelectorAll('.screen').forEach(screen => {
+                    screen.classList.remove('active');
+                });
+                document.getElementById(stepId).classList.add('active');
+            },
+
+            startSession() {
+                const trainer = document.getElementById('trainerSelect').value;
+                const demoMode = document.getElementById('demoMode').checked;
+                const sessionType = document.getElementById('sessionType').value;
+                this.stats = {
+                    startTime: new Date(),
+                    pickUpCount: 0,
+                    cryingEpisodes: 0,
+                    totalDuration: 0,
+                    trainer: trainer,
+                    demoMode: demoMode,
+                    sessionType: sessionType
+                };
+                this.goToStep('step1');
+            },
+
+            startTimer() {
+                this.timerSeconds = 360;
+                this.stats.cryingEpisodes++;
+                this.goToStep('timer');
+                this.runTimer();
+            },
+
+            runTimer() {
+                if (this.timerInterval) {
+                    clearInterval(this.timerInterval);
+                }
+
+                this.updateTimerDisplay();
+
+                this.timerInterval = setInterval(() => {
+                    this.timerSeconds--;
+                    this.updateTimerDisplay();
+
+                    if (this.timerSeconds <= 0) {
+                        clearInterval(this.timerInterval);
+                        this.playAlarmSound();
+                        this.goToStep('timerComplete');
+                    }
+                }, 1000);
+            },
+
+            updateTimerDisplay() {
+                const mins = Math.floor(this.timerSeconds / 60);
+                const secs = this.timerSeconds % 60;
+                const display = `${mins}:${secs.toString().padStart(2, '0')}`;
+                document.getElementById('timerDisplay').textContent = display;
+            },
+
+            stopTimer() {
+                if (this.timerInterval) {
+                    clearInterval(this.timerInterval);
+                }
+                this.goToStep('calmed');
+            },
+
+            pickUp() {
+                this.stats.pickUpCount++;
+                this.goToStep('pickUp');
+            },
+
+            async endSession() {
+                if (this.timerInterval) {
+                    clearInterval(this.timerInterval);
+                }
+
+                const endTime = new Date();
+                const duration = Math.round((endTime - this.stats.startTime) / 1000 / 60);
+                this.stats.totalDuration = duration;
+
+                document.getElementById('statDuration').textContent = duration + ' mins';
+                document.getElementById('statPickups').textContent = this.stats.pickUpCount;
+                document.getElementById('statEpisodes').textContent = this.stats.cryingEpisodes;
+
+                let feedback = '';
+                if (duration <= 20) {
+                    feedback = "Excellent! This was a quick session. Finn is learning fast.";
+                } else if (duration <= 45) {
+                    feedback = "Good progress. This is normal for early days of sleep training.";
+                } else {
+                    feedback = "This took longer, but that's completely normal. Keep being consistent.";
+                }
+                document.getElementById('feedbackText').textContent = feedback;
+
+                // Show or hide demo mode notice
+                if (this.stats.demoMode) {
+                    document.getElementById('demoNotice').style.display = 'block';
+                } else {
+                    document.getElementById('demoNotice').style.display = 'none';
+                    
+                    // Save session only if not in demo mode
+                    const sessionData = {
+                        date: this.stats.startTime.toISOString(),
+                        trainer: this.stats.trainer,
+                        sessionType: this.stats.sessionType,
+                        duration: duration,
+                        pickUps: this.stats.pickUpCount,
+                        cryingEpisodes: this.stats.cryingEpisodes
+                    };
+                    
+                    await this.saveSession(sessionData);
+                }
+
+                this.goToStep('success');
+            },
+
+            reset() {
+                if (this.timerInterval) {
+                    clearInterval(this.timerInterval);
+                }
+                this.stats = {
+                    startTime: null,
+                    pickUpCount: 0,
+                    cryingEpisodes: 0,
+                    totalDuration: 0,
+                    trainer: 'Martin',
+                    demoMode: false,
+                    sessionType: 'Bedtime'
+                };
+                this.timerSeconds = 360;
+                document.getElementById('demoMode').checked = false;
+                this.goToStep('start');
+            }
+        };
+        
+        // Load sessions on startup
+        window.addEventListener('load', () => {
+            app.loadSessions();
+        });
+    </script>
+</body>
+</html>
